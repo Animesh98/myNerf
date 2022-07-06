@@ -1,5 +1,5 @@
 import torch
-from torchsearchsorted import searchsorted
+#from torchsearchsorted import searchsorted
 
 __all__ = ['render_rays']
 
@@ -40,6 +40,7 @@ def sample_pdf(bins, weights, N_importance, det=False, eps=1e-5):
     u = u.contiguous()
 
     inds = searchsorted(cdf, u, side='right')
+    inds = torch.searchsorted(cdf, u, right=True)
     below = torch.clamp_min(inds-1, 0)
     above = torch.clamp_max(inds, N_samples_)
 
